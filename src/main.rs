@@ -7,3 +7,7 @@ pub fn time_after_gigaseconds(start: PrimitiveDateTime) -> PrimitiveDateTime {
             .unwrap();
     PrimitiveDateTime::new(required_time.date(), required_time.time())
 }
+
+pub fn reverse_string(input: &str) -> String {
+    input.chars().rev().collect()
+}
