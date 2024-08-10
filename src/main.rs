@@ -2,9 +2,7 @@ use std::{collections::HashSet, fmt, ops::Add};
 
 use time::{OffsetDateTime, PrimitiveDateTime};
 fn main() {
-    let word = "BANANA";
-    let inputs = &["banana"];
-    println!("{:?}", find_anagrams(word, inputs));
+    println!("{}", is_armstrong_number(4_106_098_957));
 }
 
 // Exercise 1
@@ -134,4 +132,28 @@ fn is_anagram(word: &str, possible_anagram: &str) -> bool {
     } else {
         false
     }
+}
+
+// Exercise 5
+pub fn is_armstrong_number(num: i64) -> bool {
+    let total_digits = number_of_digits(num);
+    if total_digits == 1 {
+        return true;
+    }
+    println!("{}", total_digits);
+    let mut n = num.clone();
+    let mut sum = 0;
+    for i in 1..=total_digits {
+        sum += (n % 10).pow(total_digits);
+        n = n / 10;
+        println!("{}", sum);
+    }
+    if sum == num {
+        return true;
+    }
+    false
+}
+
+fn number_of_digits(num: i64) -> u32 {
+    num.to_string().len().try_into().unwrap()
 }
