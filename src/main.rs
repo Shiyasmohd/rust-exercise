@@ -1,10 +1,13 @@
-use std::{fmt, ops::Add};
+use std::{collections::HashSet, fmt, ops::Add};
 
 use time::{OffsetDateTime, PrimitiveDateTime};
 fn main() {
-    println!("{} {}", Clock::new(0, 3).add_minutes(-4), "23:59")
+    let word = "BANANA";
+    let inputs = &["banana"];
+    println!("{:?}", find_anagrams(word, inputs));
 }
 
+// Exercise 1
 pub fn time_after_gigaseconds(start: PrimitiveDateTime) -> PrimitiveDateTime {
     let required_time =
         OffsetDateTime::from_unix_timestamp(start.assume_utc().unix_timestamp() + (10_i64.pow(9)))
@@ -12,10 +15,12 @@ pub fn time_after_gigaseconds(start: PrimitiveDateTime) -> PrimitiveDateTime {
     PrimitiveDateTime::new(required_time.date(), required_time.time())
 }
 
+// Exercise 2
 pub fn reverse_string(input: &str) -> String {
     input.chars().rev().collect()
 }
 
+// Exercise 3
 #[derive(Debug, PartialEq)]
 pub struct Clock {
     hours: i32,
@@ -47,7 +52,7 @@ impl Clock {
     }
 
     pub fn add_minutes(&self, minutes: i32) -> Self {
-        let mut calculated_hours = 0;
+        let mut calculated_hours;
         let mut calculated_minutes = 0;
         if minutes < 0 {
             let temp = if minutes % 60 == 0 || self.minutes >= -minutes {
@@ -90,5 +95,43 @@ impl fmt::Display for Clock {
         } else {
             write!(f, "{}:{}", self.hours, self.minutes)
         }
+    }
+}
+
+// Exercise 4
+
+fn remove_char(arr: &mut Vec<char>, target: char) {
+    if let Some(pos) = arr.iter().position(|&c| c == target) {
+        arr.remove(pos);
+    }
+}
+
+fn find_anagrams<'a>(word: &'a str, possible_anagrams: &'a [&str]) -> HashSet<&'a str> {
+    let result_arr: HashSet<&str> = possible_anagrams
+        .iter()
+        .filter(|&&anagram| is_anagram(word, anagram))
+        .copied()
+        .collect();
+    println!("{:?}", result_arr);
+    result_arr
+}
+
+fn is_anagram(word: &str, possible_anagram: &str) -> bool {
+    if word.len() != possible_anagram.len() || word == possible_anagram {
+        return false;
+    }
+    let mut chars: Vec<_> = possible_anagram.to_lowercase().chars().collect();
+    let mut temp_word: Vec<_> = word.to_lowercase().chars().collect();
+    for char in &chars.clone() {
+        if temp_word.contains(&char) {
+            remove_char(&mut temp_word, *char);
+            remove_char(&mut chars, *char);
+            println!("After removing {} : {:?} {:?}", char, temp_word, chars);
+        }
+    }
+    if chars.len() == 0 && temp_word.len() == 0 {
+        true
+    } else {
+        false
     }
 }
