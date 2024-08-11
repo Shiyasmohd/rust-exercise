@@ -245,3 +245,51 @@ impl Planet for Neptune {
         164.79132
     }
 }
+
+// Exercise 8
+#[derive(Debug)]
+pub struct HighScores {
+    scores: Vec<u32>,
+}
+
+impl HighScores {
+    pub fn new(scores: &[u32]) -> Self {
+        Self {
+            scores: scores.to_vec(),
+        }
+    }
+
+    pub fn scores(&self) -> &[u32] {
+        self.scores()
+    }
+
+    pub fn latest(&self) -> Option<u32> {
+        if self.scores.len() == 0 {
+            return None;
+        }
+        let total_scores = self.scores.len();
+        Some(self.scores[total_scores - 1])
+    }
+
+    pub fn personal_best(&self) -> Option<u32> {
+        if self.scores.len() == 0 {
+            return None;
+        }
+        let mut max = self.scores[0];
+        for score in &self.scores {
+            if score > &max {
+                max = score.clone()
+            }
+        }
+        Some(max)
+    }
+
+    pub fn personal_top_three(&self) -> Vec<u32> {
+        if self.scores.len() == 0 {
+            return [].to_vec();
+        }
+        let mut sorted = self.scores.clone();
+        sorted.sort_by(|a, b| b.cmp(a));
+        sorted.iter().take(3).cloned().collect()
+    }
+}
