@@ -293,3 +293,21 @@ impl HighScores {
         sorted.iter().take(3).cloned().collect()
     }
 }
+
+// Exercise 9
+pub fn raindrops(n: u32) -> String {
+    let mut result = String::from("");
+    if n % 3 == 0 {
+        result.push_str("Pling")
+    }
+    if n % 5 == 0 {
+        result.push_str("Plang")
+    }
+    if n % 7 == 0 {
+        result.push_str("Plong")
+    }
+    if result.len() == 0 {
+        return n.to_string();
+    }
+    result
+}
