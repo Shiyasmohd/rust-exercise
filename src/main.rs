@@ -345,3 +345,41 @@ pub fn sublist<T: PartialEq + Debug>(_first_list: &[T], _second_list: &[T]) -> C
     }
     Comparison::Unequal
 }
+
+// Exercise 11
+pub fn is_valid(code: &str) -> bool {
+    if code.chars().filter(|c| !c.is_whitespace()).count() <= 1 {
+        return false;
+    }
+    if code.chars().any(|c| !c.is_digit(10) && !c.is_whitespace()) {
+        return false;
+    }
+    let numbers: Vec<char> = code.chars().filter(|c| c.is_digit(10)).rev().collect();
+
+    let mut modified_numbers = numbers.clone();
+    for (index, n) in numbers.iter().enumerate() {
+        if index % 2 != 0 {
+            modified_numbers[index] = multipy_number(n);
+        }
+    }
+    check_sum(modified_numbers)
+}
+
+fn multipy_number(c: &char) -> char {
+    let n = c.to_digit(10).unwrap();
+    let result = if n * 2 > 9 { (n * 2) - 9 } else { n * 2 };
+    char::from_digit(result, 10).unwrap()
+}
+
+fn check_sum(numbers: Vec<char>) -> bool {
+    let mut sum = 0;
+    for n in numbers {
+        sum += n.to_digit(10).unwrap()
+    }
+    println!("Sum: {}", sum);
+    if sum % 10 == 0 {
+        true
+    } else {
+        false
+    }
+}
