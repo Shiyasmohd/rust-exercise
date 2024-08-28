@@ -398,7 +398,7 @@ pub fn total() -> u128 {
 
 // Exercise 13
 pub fn is_leap_year(year: u64) -> bool {
-    match (year % 4 == 0 || year % 400 == 0) && (year % 100 != 100) {
+    match (year % 100 != 0 || year % 400 == 0) && (year % 4 == 0) {
         true => true,
         false => false,
     }
