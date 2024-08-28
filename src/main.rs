@@ -7,7 +7,7 @@ use std::{
 
 use time::{OffsetDateTime, PrimitiveDateTime};
 fn main() {
-    println!("{}", square_of_sum(10));
+    println!("{}", total());
 }
 
 // Exercise 1
@@ -382,4 +382,16 @@ fn check_sum(numbers: Vec<char>) -> bool {
     } else {
         false
     }
+}
+
+// Excercise 12
+pub fn square(s: u32) -> u64 {
+    match s > 0 && s < 65 {
+        true => 2_u64.pow(s - 1),
+        false => panic!(""),
+    }
+}
+
+pub fn total() -> u128 {
+    2_u128.pow(64) - 1
 }
