@@ -395,3 +395,11 @@ pub fn square(s: u32) -> u64 {
 pub fn total() -> u128 {
     2_u128.pow(64) - 1
 }
+
+// Exercise 13
+pub fn is_leap_year(year: u64) -> bool {
+    match (year % 4 == 0 || year % 400 == 0) && (year % 100 != 100) {
+        true => true,
+        false => false,
+    }
+}
