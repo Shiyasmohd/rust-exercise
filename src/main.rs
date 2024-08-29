@@ -7,7 +7,7 @@ use std::{
 
 use time::{OffsetDateTime, PrimitiveDateTime};
 fn main() {
-    println!("{}", total());
+    println!("{}", find_nth_prime(10000));
 }
 
 // Exercise 1
@@ -399,4 +399,32 @@ pub fn total() -> u128 {
 // Exercise 13
 pub fn is_leap_year(year: u64) -> bool {
     (year % 100 != 0 || year % 400 == 0) && year % 4 == 0
+}
+
+// Exercise 14
+fn is_prime(n: u64) -> bool {
+    if n <= 1 {
+        return false;
+    }
+    let limit = (n as f64).sqrt().floor() as u64;
+    for i in 2..=limit {
+        if n % i == 0 {
+            return false;
+        }
+    }
+    true
+}
+
+fn find_nth_prime(n: u64) -> u64 {
+    let mut count = 0;
+    let mut num = 2;
+    loop {
+        if is_prime(num) {
+            count += 1;
+        }
+        if count == n + 1 {
+            break num;
+        }
+        num += 1;
+    }
 }
