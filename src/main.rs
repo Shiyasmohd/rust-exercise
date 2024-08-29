@@ -7,7 +7,7 @@ use std::{
 
 use time::{OffsetDateTime, PrimitiveDateTime};
 fn main() {
-    println!("{}", find_nth_prime(10000));
+    println!("{}", sum_of_multiples(4, &[3, 0]));
 }
 
 // Exercise 1
@@ -427,4 +427,21 @@ fn find_nth_prime(n: u64) -> u64 {
         }
         num += 1;
     }
+}
+
+// Exercise 15
+pub fn sum_of_multiples(limit: u32, factors: &[u32]) -> u32 {
+    let mut multiples: HashSet<u32> = HashSet::new();
+    for factor in factors {
+        if factor == &0 {
+            continue;
+        }
+        for i in 1..limit {
+            if i % factor == 0 {
+                multiples.insert(i);
+            }
+        }
+    }
+    let sum: u32 = multiples.iter().sum();
+    sum
 }
