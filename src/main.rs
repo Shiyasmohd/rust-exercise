@@ -7,7 +7,7 @@ use std::{
 
 use time::{OffsetDateTime, PrimitiveDateTime};
 fn main() {
-    println!("{}", sum_of_multiples(4, &[3, 0]));
+    println!("{:?}", series(&"9142", 2));
 }
 
 // Exercise 1
@@ -444,4 +444,17 @@ pub fn sum_of_multiples(limit: u32, factors: &[u32]) -> u32 {
     }
     let sum: u32 = multiples.iter().sum();
     sum
+}
+
+// Exercise 16
+pub fn series(digits: &str, len: usize) -> Vec<String> {
+    let mut result: Vec<String> = vec![];
+    let mut i = 0;
+    loop {
+        if digits.len() - i < len {
+            break result;
+        }
+        result.push(digits[i..i + len].to_string());
+        i += 1;
+    }
 }
