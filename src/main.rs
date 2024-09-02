@@ -7,7 +7,7 @@ use std::{
 
 use time::{OffsetDateTime, PrimitiveDateTime};
 fn main() {
-    println!("{:?}", series(&"9142", 2));
+    println!("{:?}", egg_count(89));
 }
 
 // Exercise 1
@@ -457,4 +457,10 @@ pub fn series(digits: &str, len: usize) -> Vec<String> {
         result.push(digits[i..i + len].to_string());
         i += 1;
     }
+}
+
+// Excercise 17
+pub fn egg_count(display_value: u32) -> usize {
+    let binary = format!("{:b}", display_value);
+    binary.chars().filter(|&x| x == '1').count()
 }
