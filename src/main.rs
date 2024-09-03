@@ -7,7 +7,7 @@ use std::{
 
 use time::{OffsetDateTime, PrimitiveDateTime};
 fn main() {
-    println!("{:?}", egg_count(89));
+    println!("{:?}", brackets_are_balanced("[({]})"));
 }
 
 // Exercise 1
@@ -463,4 +463,36 @@ pub fn series(digits: &str, len: usize) -> Vec<String> {
 pub fn egg_count(display_value: u32) -> usize {
     let binary = format!("{:b}", display_value);
     binary.chars().filter(|&x| x == '1').count()
+}
+
+// Exercise 18
+pub fn brackets_are_balanced(string: &str) -> bool {
+    let chars: Vec<char> = string
+        .chars()
+        .filter(|&x| matches!(x, '{' | '}' | '[' | ']' | '(' | ')'))
+        .collect();
+    println!("{:?}", chars);
+    let mut stack: Vec<char> = vec![];
+    for c in chars {
+        match c {
+            '(' | '{' | '[' => stack.push(c),
+            ')' => {
+                if stack.pop() != Some('(') {
+                    return false;
+                }
+            }
+            '}' => {
+                if stack.pop() != Some('{') {
+                    return false;
+                }
+            }
+            ']' => {
+                if stack.pop() != Some('[') {
+                    return false;
+                }
+            }
+            _ => (),
+        }
+    }
+    stack.is_empty()
 }
